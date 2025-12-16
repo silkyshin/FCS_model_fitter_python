@@ -5,12 +5,10 @@ import argparse
 # --- 1. Parse command-line arguments ---
 parser = argparse.ArgumentParser(description="Predict FCS G0 and diffusion time from ODE solution")
 parser.add_argument('--csv', type=str, required=True, help="Path to ODE solution CSV")
-parser.add_argument('--frac', type=float, required=True, help="Fraction of fluorescent protein (f)")
 parser.add_argument('--sfactor', type=float, default=1.0, help="Scaling exponent v for tau_n = n^v (default 1.0)")
 args = parser.parse_args()
 
 csv_file = args.csv
-f = args.frac
 v = args.sfactor
 
 # --- 2. Load ODE solution CSV ---
@@ -21,15 +19,16 @@ M_t = data[:,1:]  # concentrations of oligomers
 # --- 3. Number of monomers per species ---
 n = np.arange(1, M_t.shape[1]+1)
 
-# --- 4. Predicted number of fluorescent monomers per species ---
-P = M_t * n * f
+# --- 4. Normalize M_t to total monomer equivalents ---
+total_monomers = np.sum(M_t * n, axis=1, keepdims=True)
+M_norm = (M_t * n) / total_monomers
 
 # --- 5. Predicted G0(t) ---
-G0_pred = np.sum(P**2, axis=1) / np.sum(P, axis=1)**2
+G0_pred = np.sum(M_norm**2, axis=1)
 
 # --- 6. Predicted diffusion time ---
 tau_n = n**v
-tauD_pred = np.sum(P * tau_n, axis=1) / np.sum(P, axis=1)
+tauD_pred = np.sum(M_norm * tau_n, axis=1)
 
 # --- 7. Plot ---
 plt.figure(figsize=(8,6))
