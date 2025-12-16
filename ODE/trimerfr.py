@@ -1,6 +1,6 @@
 # Model info
 model_name = "1-3-6 trimer based nucleation model"
-kinetic_constants = ['k1','k_-1','k2','k_-2']
+kinetic_constants = ['k1','k_1','k2','k_2']
 
 def ode_model(t, M, k):
     M1, M3, M6 = M
