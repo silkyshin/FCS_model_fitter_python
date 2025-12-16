@@ -1,6 +1,6 @@
 # Model info
 model_name = "1-2-4-8 dimer-higher order oligomer model"
-kinetic_constants = ['k1','k_-1','k2','k_-2','k3','k_-3']
+kinetic_constants = ['k1','k_1','k2','k_2','k3','k_3']
 
 def ode_model(t, M, k):
     M1, M2, M4, M8 = M
