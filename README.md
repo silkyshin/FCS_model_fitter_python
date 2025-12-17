@@ -5,15 +5,14 @@ Read the README in the ODE directory.
 To predict with different oligomerization models, copy the format of the model scripts.
 
 # Installation
-'''
-git clone https://github.com/silkyshin/FCS_Predictor.git
-'''
+`git clone https://github.com/silkyshin/FCS_Predictor.git`
+
 
 # Usage
-'''
+```
 python ODEsolver.py --model 'path/to/model.py'
 python FCS_predictor.py --csv 'path/to/csv' --sfactor 'scaling factor'
-'''
+```
 
 # Hydrodynamic radius, therefore diffusion time, scales as such:
 Rh_n=Rh_1*n^v
