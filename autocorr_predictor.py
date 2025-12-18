@@ -5,12 +5,12 @@ import argparse
 # parse command line arguments
 parser = argparse.ArgumentParser(description="Predict FCS curves from ODE solution")
 parser.add_argument('--csv', type=str, required=True, help="Path to ODE solution CSV")
-parser.add_argument('--sfactor', type=float, default=1.0, help="Scaling exponent v for tau_n = n^v")
-parser.add_argument('--tripletF', type=float, default=0.1, help="Triplet fraction F")
-parser.add_argument('--tripletTau', type=float, default=1e-6, help="Triplet lifetime tau_m (s)")
+parser.add_argument('--sfactor', type=float, default=0.5, help="Scaling exponent v for tau_n = n^v")
+parser.add_argument('--tripletF', type=float, default=0.2, help="Triplet fraction F")
+parser.add_argument('--tripletTau', type=float, default=0.015, help="Triplet lifetime tau_m (s)")
 parser.add_argument('--baseline', type=float, default=1.0, help="Baseline C")
-parser.add_argument('--lagMin', type=float, default=1e-6, help="Min lag time (s)")
-parser.add_argument('--lagMax', type=float, default=1e2, help="Max lag time (s)")
+parser.add_argument('--lagMin', type=float, default=0.001, help="Min lag time (s)")
+parser.add_argument('--lagMax', type=float, default=1000, help="Max lag time (s)")
 parser.add_argument('--numLag', type=int, default=200, help="Number of lag times")
 parser.add_argument('--saveTimepoints', type=str, default=None,
                     help="Comma-separated list of ODE timepoints to save curves (default: last timepoint only)")
