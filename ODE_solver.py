@@ -31,7 +31,7 @@ try:
   for name in model_module.kinetic_constants:
     print(f" - {name}")
 except AttributeError:
-  raise AttributeError("Model file must define 'model_name' and 'kinetic_constant' variables")
+  raise AttributeError("Model file must define 'model_name' and 'kinetic_constants' variables")
 # 3.2 Ask for the constants
 k_input = input(f"\nEnter {len(model_module.kinetic_constants)} kinetic constants (comma-separated):\n")
 k_list = [float(x.strip()) for x in k_input.split(',')]
@@ -62,8 +62,16 @@ t_eval = np.linspace(t_start, t_end, num_points)
 t_span = (t_start, t_end)
 
 # 6. Solve ODE
+def wrapped_ode(t, M):
+  dM = model_module.ode_model(t, M, k)
+  if len(dM) != len(M):
+    raise ValueError("ode_model returned incorrect vector length')
+  return dM
+    
 sol = solve_ivp(lambda t, M: model_module.ode_model(t, M, k),
                 t_span, M0, t_eval=t_eval, method='RK45')
+if not sol.success:
+  raise RuntimeError(f"ODE solver failed: {sol.message}")
 
 # 7. Save solution to CSV
 output_file = input("\nEnter filename to save solution (e.g., ODE_solution.csv): ")
