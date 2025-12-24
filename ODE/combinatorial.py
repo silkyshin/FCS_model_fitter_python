@@ -1,5 +1,9 @@
 # Model info
 model_name = "1-2-3-4-5-6 combinatorial oligomerization"
+# Combinatorial oligomerization assumes that higher order species can be formed
+# with any combination of lower order oligomers, as long as there is enough 
+# monomer equivalent. I am considering writing a script that will generate ODEs,
+# but may take time to implement. Check the WIP folder.
 kinetic_constants = ['k1','k_1','k2','k_2','k2','k_2','k3','k_3','k4','k_4','k5','k_5','k6','k_6','k7','k_7','k8','k_8','k9','k_9']
 
 def ode_model(t, M, k):
